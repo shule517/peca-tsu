@@ -5,9 +5,8 @@ class YP < Thor
   desc 'get_channel', 'チャンネルを取得する'
   def get_channel
     puts 'チャンネル取得！'
-    # puts channels.map { |ch| ch[:name] }
     channels.each do |ch|
-      create_channel(ch).save
+      create_channel(ch)
     end
   end
 
@@ -20,9 +19,12 @@ class YP < Thor
   end
 
   def create_channel(channel)
-    Channel.new do |ch|
-      ch.name = channel[:name]
-      ch.last_genre = channel[:genre]
-    end
+    ch = Channel.find_or_create_by(name: channel[:name])
+    ch.name = channel[:name]
+    ch.contact_url = channel[:url] if channel[:url].present?
+    ch.last_genre = channel[:genre]
+    ch.last_detail = channel[:desc]
+    ch.last_started_at = channel[:started_at]
+    ch.save
   end
 end

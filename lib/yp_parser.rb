@@ -20,6 +20,14 @@ class YPParser
   def parse_line(line)
     elements = line.split(/<>/)
     keys = [:name, :id, :ip, :url, :genre, :desc, :listeners, :relays, :bitrate, :type, :track_creator, :track_album, :track_title, :track_url, :a, :time, :click, :comment, :direct]
-    keys.zip(elements).to_h
+    channel = keys.zip(elements).to_h
+    channel[:started_at] = Time.now - time_to_second(channel[:time])
+    channel
+  end
+
+  def time_to_second(time)
+    h = time[/^[0-9]+/].to_i
+    m = time[/[0-9]+$/].to_i
+    (h * 60 * 60) + (m * 60)
   end
 end
