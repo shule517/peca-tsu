@@ -2,7 +2,7 @@ class YPParser
   def self.parse_from_web(yp_url)
     index_text = open("#{yp_url}index.txt").read
     channels = parse(index_text)
-    p channels.map{|ch|ch[:name]}
+    p channels.map { |channel| channel[:name] }
     channels
   end
 
@@ -11,7 +11,8 @@ class YPParser
   end
 
   def parse(body)
-    body.split(/\n/).map { |line| parse_line(line) }
+    channels = body.split(/\n/).map { |line| parse_line(line) }
+    channels.reject { |channel| channel[:listeners].to_i < -1 }
   end
 
   private
