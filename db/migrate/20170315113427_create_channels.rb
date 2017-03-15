@@ -5,7 +5,7 @@ class CreateChannels < ActiveRecord::Migration[5.0]
       t.string :contact_url
       t.string :last_genre
       t.string :last_detail
-      t.date :last_started_at
+      t.timestamp :last_started_at
 
       t.timestamps
     end

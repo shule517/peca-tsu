@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20170315113427) do
     t.string   "contact_url"
     t.string   "last_genre"
     t.string   "last_detail"
-    t.date     "last_started_at"
+    t.datetime "last_started_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
