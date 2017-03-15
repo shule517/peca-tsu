@@ -35,6 +35,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'thor'
+gem 'hirb'         # モデルの出力結果を表形式で表示するGem
+gem 'hirb-unicode' # 日本語などマルチバイト文字の出力時の出力結果のずれに対応
+gem 'pry-rails'    # rails console(もしくは、rails c)でirbの代わりにpryを使われる
+gem 'pry-doc'      # methodを表示
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
