@@ -40,8 +40,13 @@ describe YPScraping do
     end
     context 'SPの場合' do
       let(:history_url) { 'http://bayonet.ddo.jp/sp/getgmt.php?cn=%E4%B8%AD%E5%B1%B1' }
-      # it { expect(history.days).to include Date.parse('2012/12/24') } # 最古の配信日
-      # it { expect(history.days).to include Date.parse('2017/03/18') } # 最新の配信日
+      let(:detail) { history.detail('2017/03/06') }
+      it { expect(detail[:start_time]).to eq '05:30' } # 配信開始時間
+      it { expect(detail[:end_time]).to eq '11:20' } # 配信終了時間
+      it { expect(detail[:genre]).to eq 'プログラミング' }
+      it { expect(detail[:detail]).to eq 'slackで色々通知できるようにする' }
+      it { expect(detail[:contact_url]).to eq nil }
+      it { expect(detail[:comment]).not_to eq nil }
     end
   end
 end
