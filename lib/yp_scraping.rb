@@ -16,8 +16,12 @@ class YPScraping
     end
   end
 
+  def details(date_list)
+    date_list.map { |date| detail(date) }
+  end
+
   def detail(date)
-    date.gsub!('/', '')
+    date = date.to_s.gsub('-', '')
     name = broadcast_doc(date).css('.main h2').text.gsub(' - Statistics', '')
     details = broadcast_doc(date).css('.log tr').map do |day_doc|
       elem = day_doc.css('td').map { |td| td.text }
@@ -28,11 +32,17 @@ class YPScraping
     desc.gsub!(/」$/, '')
     data = desc.split(']').first.split(' - ')
     comment = desc.split('「').last
+
+    broadcast_date = Date.parse(date)
+    start_time = DateTime.parse("#{broadcast_date} #{details.first[:time]}")
+    end_time = DateTime.parse("#{broadcast_date} #{details.last[:time]}")
+    time = end_time.to_time - start_time.to_time
     {
       name: name,
-      date: Date.parse(date),
-      start_time: details.first[:time],
-      end_time: details.last[:time],
+      date: broadcast_date,
+      time: time / 60.0 / 60.0,
+      start_time: start_time,
+      end_time: end_time,
       genre: data[0],
       detail: data[1],
       contact_url: data[2],
