@@ -21,9 +21,11 @@ class YP < Thor
   def create_channel(channel)
     ch = Channel.find_or_create_by(name: channel[:name])
     ch.name = channel[:name]
+    ch.yp_url = channel[:yp_url]
     ch.contact_url = channel[:url] if channel[:url].present?
     ch.last_genre = channel[:genre]
     ch.last_detail = channel[:desc]
+    ch.last_comment = channel[:comment]
     ch.last_started_at = channel[:started_at]
     ch.save
   end
