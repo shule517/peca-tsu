@@ -35,6 +35,9 @@ class YPScraping
       contact_url: data[2],
       comment: comment,
     }
+    # TODO 配信中に詳細を変更したときのことを考慮したい
+    # TODO 配信を再起動したときは新しい配信としてみたくない 同じ詳細なら
+    # TODO 配信が日をまたいだ場合に 同じ詳細が続くのもやだ
   end
 
   private
