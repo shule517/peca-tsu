@@ -3,6 +3,7 @@ class YPParser
     index_text = open("#{yp_url}index.txt").read
     channels = parse(index_text)
     p channels.map { |channel| channel[:name] }
+    channels.each { |channel| channel[:yp_url] = yp_url }
     channels
   end
 

@@ -1,13 +1,17 @@
 require './spec/rails_helper'
 describe YPParser do
-  let(:tp_url) { 'http://temp.orz.hm/yp/' }
-  let(:sp_url) { 'http://bayonet.ddo.jp/sp/' }
   describe '各YPから情報が取得できること' do
-    it 'TPから取得できること' do
-      expect(YPParser.parse_from_web(tp_url).count).to be > 0
+    context 'TPの場合' do
+      let(:yp_url) { 'http://temp.orz.hm/yp/' }
+      let(:channles) { YPParser.parse_from_web(yp_url) }
+      it { expect(channles.count).to be > 0 }
+      it { expect(channles.first[:yp_url]).to eq yp_url }
     end
-    it 'SPから取得できること' do
-      expect(YPParser.parse_from_web(sp_url).count).to be > 0
+    context 'SPの場合' do
+      let(:channles) { YPParser.parse_from_web(yp_url) }
+      let(:yp_url) { 'http://bayonet.ddo.jp/sp/' }
+      it { expect(channles.count).to be > 0 }
+      it { expect(channles.first[:yp_url]).to eq yp_url }
     end
   end
 
