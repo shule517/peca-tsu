@@ -16,13 +16,41 @@ class YPScraping
     end
   end
 
+  def detail(date)
+    date.gsub!('/', '')
+    details = broadcast_doc(date).css('.log tr').map do |day_doc|
+      elem = day_doc.css('td').map { |td| td.text }
+      { time: elem[0], age: elem[1], listener: elem[2], description: elem[3] }
+    end.drop(1) # ヘッダーを削除
+    desc = details.first[:description]
+    desc.gsub!(/^\[/, '')
+    desc.gsub!(/」$/, '')
+    data = desc.split(']').first.split(' - ')
+    comment = desc.split('「').last
+    {
+      start_time: details.first[:time],
+      end_time: details.last[:time],
+      genre: data[0],
+      detail: data[1],
+      contact_url: data[2],
+      comment: comment,
+    }
+  end
+
   private
 
   def calendar_doc
-    history_doc.css('.side .calendar')
+    @calendar_doc ||= history_doc.css('.side .calendar')
   end
 
   def history_doc
+    # http://temp.orz.hm/yp/getgmt.php?cn=しっかりシュールｃｈ
     @history_doc ||= Shule::Http.get_document(history_url)
+  end
+
+  def broadcast_doc(date)
+    # http://temp.orz.hm/yp/getgmt.php?cn=しっかりシュールｃｈ&date=20161211
+    url = "#{history_url}&date=#{date}"
+    Shule::Http.get_document(url)
   end
 end
