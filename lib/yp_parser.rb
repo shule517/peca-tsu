@@ -1,8 +1,9 @@
+# YPからindex.txtを取得し、チャンネル情報を作成
 class YPParser
   def self.parse_from_web(yp_url)
     index_text = open("#{yp_url}index.txt").read
     channels = parse(index_text)
-    p channels.map { |channel| channel[:name] }
+    # p channels.map { |channel| channel[:name] }
     channels.each { |channel| channel[:yp_url] = yp_url }
     channels
   end

@@ -1,4 +1,5 @@
 require './spec/rails_helper'
+
 describe YPParser do
   describe '各YPから情報が取得できること' do
     context 'TPの場合' do
