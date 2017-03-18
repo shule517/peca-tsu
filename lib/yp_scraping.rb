@@ -6,19 +6,21 @@ class YPScraping
   end
 
   def days
-    list = []
-    history_doc.css('.side .calendar').each do |month_doc|
+    calendar_doc.flat_map do |month_doc|
       month = month_doc.css('.idx').text
-      month_doc.css('.a').each do |day_doc|
+      month_doc.css('.a').map do |day_doc|
         day = day_doc.text
         date = "#{month}/#{day}"
-        list << Date.parse(date)
+        Date.parse(date)
       end
     end
-    list
   end
 
   private
+
+  def calendar_doc
+    history_doc.css('.side .calendar')
+  end
 
   def history_doc
     @history_doc ||= Shule::Http.get_document(history_url)
