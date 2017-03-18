@@ -1,10 +1,10 @@
+# YP(index.txt)からチャンネル情報を取得する
 class YP < Thor
   TP_URL = 'http://temp.orz.hm/yp/'
   SP_URL = 'http://bayonet.ddo.jp/sp/'
 
   desc 'get_channel', 'チャンネルを取得する'
   def get_channel
-    puts 'チャンネル取得！'
     channels.each do |ch|
       create_channel(ch)
     end
