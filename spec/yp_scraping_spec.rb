@@ -20,6 +20,8 @@ describe YPScraping do
       context '通常' do
         let(:history_url) { 'http://temp.orz.hm/yp/getgmt.php?cn=%E3%81%97%E3%81%A3%E3%81%8B%E3%82%8A%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%AB%EF%BD%83%EF%BD%88' }
         let(:detail) { history.detail('2016/12/09') }
+        it { expect(detail[:name]).to eq 'しっかりシュールｃｈ' }
+        it { expect(detail[:date]).to eq Date.parse('2016/12/09') }
         it { expect(detail[:start_time]).to eq '19:10' } # 配信開始時間
         it { expect(detail[:end_time]).to eq '23:50' } # 配信終了時間
         it { expect(detail[:genre]).to eq 'プログラミング' }
@@ -30,6 +32,8 @@ describe YPScraping do
       context 'コメントがない場合' do
         let(:history_url) { 'http://temp.orz.hm/yp/getgmt.php?cn=%E3%81%8E%E3%82%82' }
         let(:detail) { history.detail('2017/03/17') }
+        it { expect(detail[:name]).to eq 'ぎも' }
+        it { expect(detail[:date]).to eq Date.parse('2017/03/17') }
         it { expect(detail[:start_time]).to eq '21:50' } # 配信開始時間
         it { expect(detail[:end_time]).to eq '23:50' } # 配信終了時間
         it { expect(detail[:genre]).to eq 'game' }
@@ -41,6 +45,8 @@ describe YPScraping do
     context 'SPの場合' do
       let(:history_url) { 'http://bayonet.ddo.jp/sp/getgmt.php?cn=%E4%B8%AD%E5%B1%B1' }
       let(:detail) { history.detail('2017/03/06') }
+      it { expect(detail[:name]).to eq '中山' }
+      it { expect(detail[:date]).to eq Date.parse('2017/03/06') }
       it { expect(detail[:start_time]).to eq '05:30' } # 配信開始時間
       it { expect(detail[:end_time]).to eq '11:20' } # 配信終了時間
       it { expect(detail[:genre]).to eq 'プログラミング' }

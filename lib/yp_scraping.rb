@@ -18,6 +18,7 @@ class YPScraping
 
   def detail(date)
     date.gsub!('/', '')
+    name = broadcast_doc(date).css('.main h2').text.gsub(' - Statistics', '')
     details = broadcast_doc(date).css('.log tr').map do |day_doc|
       elem = day_doc.css('td').map { |td| td.text }
       { time: elem[0], age: elem[1], listener: elem[2], description: elem[3] }
@@ -28,6 +29,8 @@ class YPScraping
     data = desc.split(']').first.split(' - ')
     comment = desc.split('「').last
     {
+      name: name,
+      date: Date.parse(date),
       start_time: details.first[:time],
       end_time: details.last[:time],
       genre: data[0],
