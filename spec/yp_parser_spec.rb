@@ -8,8 +8,8 @@ describe YPParser do
       it { expect(channles.first[:yp_url]).to eq yp_url }
     end
     context 'SPの場合' do
-      let(:channles) { YPParser.parse_from_web(yp_url) }
       let(:yp_url) { 'http://bayonet.ddo.jp/sp/' }
+      let(:channles) { YPParser.parse_from_web(yp_url) }
       it { expect(channles.count).to be > 0 }
       it { expect(channles.first[:yp_url]).to eq yp_url }
     end
