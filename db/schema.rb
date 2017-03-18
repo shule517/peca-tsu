@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318031339) do
+ActiveRecord::Schema.define(version: 20170318070727) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20170318031339) do
     t.datetime "updated_at",      null: false
     t.text     "yp_url"
     t.text     "last_comment"
+  end
+
+  create_table "histories", force: :cascade do |t|
+    t.text     "name"
+    t.date     "date"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text     "genre"
+    t.text     "desc"
+    t.text     "comment"
+    t.text     "contact_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
