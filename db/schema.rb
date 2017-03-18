@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170318070727) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.text     "genre"
-    t.text     "desc"
+    t.text     "detail"
     t.text     "comment"
     t.text     "contact_url"
     t.datetime "created_at",  null: false

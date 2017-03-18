@@ -6,7 +6,7 @@ class CreateHistories < ActiveRecord::Migration[5.0]
       t.datetime :start_time
       t.datetime :end_time
       t.text :genre
-      t.text :desc
+      t.text :detail
       t.text :comment
       t.text :contact_url
 
