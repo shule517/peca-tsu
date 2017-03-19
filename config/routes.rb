@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   namespace :channels, format: 'json' do
     get '/' , action: 'index'
   end
+  namespace :histories, format: 'json' do
+    get '/' , action: 'index'
+  end
   root 'channels#index'
 end

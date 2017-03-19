@@ -8,8 +8,11 @@ class HistoryTask < Thor
       puts ch.name
       history = YPScraping.new(ch.history_url)
       broadcast_days = history.days.reverse.take(30)
-      details = history.details(broadcast_days)
 
+      # まずはきゃすけ限定仕様で、1回でも取得できてればスキップ
+      next if History.where(name: ch.name).count > 0
+
+      details = history.details(broadcast_days)
       details.each do |detail|
         puts detail
         create_history(detail)
