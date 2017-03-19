@@ -30,7 +30,9 @@ class YPScraping
     desc = details.first[:description]
     desc.gsub!(/^\[/, '')
     desc.gsub!(/」$/, '')
-    data = desc.split(']').first.split(' - ')
+    desc_str = desc.split(']').first
+    data = [nil, nil, nil]
+    data = desc_str.split(' - ') unless desc_str.nil?
     comment = desc.split('「').last
 
     broadcast_date = Date.parse(date)

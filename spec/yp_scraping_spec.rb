@@ -29,7 +29,7 @@ describe YPScraping do
         it { expect(detail[:contact_url]).to eq 'http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1481031910/' }
         it { expect(detail[:comment]).to eq '21:00から開会式配信はっじまるよー　今日から3日間はPeerCast忘年会ハッカソン！' }
       end
-      context 'コメントがない場合' do
+      context '詳細のみ コメントがない場合' do
         let(:history_url) { 'http://temp.orz.hm/yp/getgmt.php?cn=%E3%81%8E%E3%82%82' }
         let(:detail) { history.detail(Date.parse('2017/03/17')) }
         it { expect(detail[:name]).to eq 'ぎも' }
@@ -40,6 +40,30 @@ describe YPScraping do
         it { expect(detail[:detail]).to eq 'ゼルダの伝説BOTW' }
         it { expect(detail[:contact_url]).to eq 'http://jbbs.shitaraba.net/bbs/read.cgi/internet/4074/1481269391/l50' }
         it { expect(detail[:comment]).not_to eq nil }
+      end
+      context 'ジャンル・コメントあり、詳細・コンタクトURLなし の場合' do
+        let(:history_url) { 'http://temp.orz.hm/yp/getgmt.php?cn=ADmaru' }
+        let(:detail) { history.detail(Date.parse('2017/03/11')) }
+        it { expect(detail[:name]).to eq 'ADmaru' }
+        it { expect(detail[:date]).to eq Date.parse('2017/03/11') }
+        it { expect(detail[:start_time]).to eq DateTime.parse('2017/03/11 05:50') } # 配信開始時間
+        it { expect(detail[:end_time]).to eq DateTime.parse('2017/03/11 23:50') } # 配信終了時間
+        it { expect(detail[:genre]).to eq '【PS】' }
+        it { expect(detail[:detail]).to eq nil }
+        it { expect(detail[:contact_url]).to eq nil }
+        it { expect(detail[:comment]).to eq '見られなかったらコメントください' }
+      end
+      context '全て未設定の場合' do
+        let(:history_url) { 'http://temp.orz.hm/yp/getgmt.php?cn=ADmaru' }
+        let(:detail) { history.detail(Date.parse('2017/03/19')) }
+        it { expect(detail[:name]).to eq 'ADmaru' }
+        it { expect(detail[:date]).to eq Date.parse('2017/03/19') }
+        it { expect(detail[:start_time]).to eq DateTime.parse('2017/03/19 00:00') } # 配信開始時間
+        # it { expect(detail[:end_time]).to eq DateTime.parse('2017/03/19 11:40') } # 配信終了時間 # まだ配信中
+        it { expect(detail[:genre]).to eq nil }
+        it { expect(detail[:detail]).to eq nil }
+        it { expect(detail[:contact_url]).to eq nil }
+        it { expect(detail[:comment]).to eq nil }
       end
     end
     context 'SPの場合' do
