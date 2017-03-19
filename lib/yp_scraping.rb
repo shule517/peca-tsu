@@ -27,6 +27,7 @@ class YPScraping
       elem = day_doc.css('td').map { |td| td.text }
       { time: elem[0], age: elem[1], listener: elem[2], description: elem[3] }
     end.drop(1) # ヘッダーを削除
+    return {} if details.first.nil?
     desc = details.first[:description]
     desc.gsub!(/^\[/, '')
     desc.gsub!(/」$/, '')

@@ -6,6 +6,7 @@ class YP < Thor
   desc 'get_channel', 'チャンネルを取得する'
   def get_channel
     channels.each do |ch|
+      puts ch[:name]
       create_channel(ch)
     end
   end

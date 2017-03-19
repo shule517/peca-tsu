@@ -4,7 +4,8 @@ class HistoryTask < Thor
   def get_history
     puts '開始！'
     channels = Channel.where.not(yp_url: nil)
-    channels.take(1).each do |ch|
+    channels.each do |ch|
+      puts ch.name
       history = YPScraping.new(ch.history_url)
       broadcast_days = history.days.reverse.take(30)
       details = history.details(broadcast_days)
