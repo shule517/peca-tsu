@@ -1,6 +1,7 @@
 class HistoriesController < ApplicationController
   def index
-    @histories = History.where(genre: user_params[:genre]).order(:start_time).reverse
+    keyword = user_params[:keyword]
+    @histories = History.where("name like '\%#{keyword}\%' or genre like '\%#{keyword}\%' or detail like '\%#{keyword}\%' or comment like '\%#{keyword}\%'").order(:end_time).reverse
     render json: @histories
   end
 
@@ -8,6 +9,6 @@ class HistoriesController < ApplicationController
 
   # リクエストパラメータのバリデーション
   def user_params
-    params.permit(:name, :genre)
+    params.permit(:keyword)
   end
 end
