@@ -29,6 +29,7 @@ class YPScraping
     end.drop(1) # ヘッダーを削除
     return {} if details.first.nil?
     desc = details.first[:description]
+    return {} if desc.nil?
     desc.gsub!(/^\[/, '')
     desc.gsub!(/」$/, '')
     desc_str = desc.split(']').first
