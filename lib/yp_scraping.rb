@@ -5,6 +5,10 @@ class YPScraping
     @history_url = history_url
   end
 
+  def enable?
+    days.count != 0
+  end
+
   def days
     calendar_doc.flat_map do |month_doc|
       month = month_doc.css('.idx').text
