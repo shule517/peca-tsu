@@ -1,3 +1,5 @@
+require 'uri'
+
 class ChannelsController < ApplicationController
   def index
     name = user_params[:name]
@@ -7,7 +9,7 @@ class ChannelsController < ApplicationController
       tp_url = 'http://temp.orz.hm/yp/'
       [sp_url, tp_url].each do |yp_url|
         history_url = "#{yp_url}getgmt.php?cn=#{name}"
-        history = YPScraping.new(history_url)
+        history = YPScraping.new(URI.escape(history_url))
         next unless history.enable?
         update_history(history)
         update_channel(history, yp_url)

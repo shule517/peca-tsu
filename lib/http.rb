@@ -14,12 +14,12 @@ module Shule
         charset = nil
         # puts "open(#{url})"
         if ssl_mode
-          html = open(url_escape) do |f|
+          html = open(url) do |f|
             charset = f.charset
             f.read
           end
         else
-          html = open(url_escape, allow_redirections: :safe, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE) do |f|
+          html = open(url, allow_redirections: :safe, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE) do |f|
             charset = f.charset
             f.read
           end
@@ -27,7 +27,7 @@ module Shule
         Nokogiri::HTML.parse(html, charset)
       rescue => e
         p e
-        puts "error: get_document(#{url_escape})"
+        puts "error: get_document(#{url})"
         Nokogiri::HTML('')
       end
 
